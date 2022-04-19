@@ -1,3 +1,4 @@
+using CarRentalMVC_Auth;
 using CarRentalMVC_Auth.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -38,6 +39,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+SeedData.Seed(app.Services.CreateScope().ServiceProvider, app.Services.GetRequiredService<IConfiguration>().GetSection("userList").Get<List<string>>());
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

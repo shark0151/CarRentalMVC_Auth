@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CarRentalMVC_Auth.Controllers
 {
+    [Authorize(Roles = "RegisteredUser")]
     public class LocationsController : Controller
     {
         private readonly ApplicationDbContext _context;
