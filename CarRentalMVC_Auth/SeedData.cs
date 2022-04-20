@@ -14,7 +14,7 @@ namespace CarRentalMVC_Auth
         }
         public static void SeedUser(UserManager<IdentityUser> userManager)
         {
-            if (userManager.FindByNameAsync("Admin").Result == null)
+            if (userManager.FindByEmailAsync("admin@localhost").Result == null)
             {
                 var user = new IdentityUser()
                 {
@@ -27,6 +27,11 @@ namespace CarRentalMVC_Auth
                 {
                     userManager.AddToRoleAsync(user, "Administrator").Wait();
                 }
+            }
+            else
+            {
+                var user = userManager.FindByEmailAsync("admin@localhost").Result;
+                userManager.AddToRoleAsync(user, "Administrator").Wait();
             }
         }
         public static void SeedRole(RoleManager<IdentityRole> roleManager)
