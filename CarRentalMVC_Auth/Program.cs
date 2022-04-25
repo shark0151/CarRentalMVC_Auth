@@ -21,10 +21,6 @@ static async Task<CosmosDbService> InitializeCosmosClientInstanceAsync(IConfigur
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<CarRentalMVC_AuthContext>(options =>
-
-    options.UseSqlServer(builder.Configuration.GetConnectionString("CarRentalMVC_AuthContext") ?? throw new InvalidOperationException("Connection string 'CarRentalMVC_AuthContext' not found.")));
-
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
