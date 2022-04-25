@@ -22,5 +22,7 @@ namespace CarRentalMVC_Auth.Data
             modelBuilder.Entity<Location>().ToTable("location");
             //modelBuilder.Entity<Student>().ToTable("Student");
         }
+        //public DbSet<Student> Students { get; set; }
+
     }
 }
