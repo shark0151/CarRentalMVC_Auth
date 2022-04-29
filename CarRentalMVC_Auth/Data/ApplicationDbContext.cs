@@ -11,18 +11,21 @@ namespace CarRentalMVC_Auth.Data
         {
         }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Location> Locations { get; set; }
-        //public DbSet<Student> Students { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<User>().ToTable("user");
             modelBuilder.Entity<Location>().ToTable("location");
+            modelBuilder.Entity<Insurance>().ToTable("insurance");
             //modelBuilder.Entity<Student>().ToTable("Student");
         }
-        //public DbSet<Student> Students { get; set; }
+
+        public DbSet<Insurance> Insurance { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<CarRentalMVC_Auth.Models.Vehicle> Vehicle { get; set; }
 
     }
 }
