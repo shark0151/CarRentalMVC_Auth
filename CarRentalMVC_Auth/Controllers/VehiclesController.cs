@@ -8,13 +8,16 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarRentalMVC_Auth.Data;
 using CarRentalMVC_Auth.Models;
+using MySqlConnector;
+using System.Data;
 
 namespace CarRentalMVC_Auth.Controllers
 {
     public class VehiclesController : Controller
     {
+        
         private readonly ApplicationDbContext _context;
-
+        
         public VehiclesController(ApplicationDbContext context)
         {
             _context = context;
@@ -24,6 +27,29 @@ namespace CarRentalMVC_Auth.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Vehicle.ToListAsync());
+        }
+
+        public List<int> GetVehiclesInLoc(int id)
+        {
+            string constr = "Server=mandatoryassigment.mysql.database.azure.com;Database=mandatoryassignment;User ID=user;Password=Password1;";
+            List<int> list = new List<int>();
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                con.Open();
+                using (MySqlCommand cmd = new MySqlCommand("GetVehiclesInLoc", con))
+                {
+                    
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@loc", id);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        list.Add(reader.GetInt32(0));
+                    }
+                }
+            }
+
+            return list;
         }
 
         // GET: Vehicles/Details/5
