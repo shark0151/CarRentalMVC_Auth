@@ -140,10 +140,44 @@ namespace CarRentalMVC_Auth.Controllers
             }
         }
 
+        private static Dictionary<string, string> updateQueries = new Dictionary<string, string>
+        {
+            { "label",   "g.V('{id}').property('id', {value.id})" },
+        };
+
         // PUT api/<UserGraphController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(string id, [FromBody] GraphUser value)
         {
+            string output = "nothing found";
+            using (var gremlinClient = new GremlinClient(GraphDbService.gremlinServer, new GraphSON2Reader(), new GraphSON2Writer(), GremlinClient.GraphSON2MimeType))
+            {
+                string x =
+                    $"g.V('{id}').property('name', '{value.name}').property('username', '{value.username}').property('password', '{value.password}').property('email', '{value.email}').property('birthdate', '{value.birthdate}').property('license_exp', '{value.license_exp}').property('license_id', '{value.license_id}').property('id_number', '{value.id_number}')";
+
+                KeyValuePair<string, string> query = new KeyValuePair<string, string>("1", x);
+                // Create async task to execute the Gremlin query.
+                var resultSet = SubmitRequest(gremlinClient, query).Result;
+                if (resultSet.Count > 0)
+                {
+                    Console.WriteLine("\tResult:");
+                    foreach (var result in resultSet)
+                    {
+                        // The vertex results are formed as Dictionaries with a nested dictionary for their properties
+                        output = JsonConvert.SerializeObject(result);
+                        Console.WriteLine($"\t{output}");
+                    }
+                    Console.WriteLine();
+                }
+
+                // Print the status attributes for the result set.
+                // This includes the following:
+                //  x-ms-status-code            : This is the sub-status code which is specific to Cosmos DB.
+                //  x-ms-total-request-charge   : The total request units charged for processing a request.
+                PrintStatusAttributes(resultSet.StatusAttributes);
+                Console.WriteLine();
+
+            }
         }
 
         // DELETE api/<UserGraphController>/5
