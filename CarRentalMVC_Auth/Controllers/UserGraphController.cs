@@ -1,4 +1,5 @@
 ﻿using CarRentalMVC_Auth.Data;
+using CarRentalMVC_Auth.Models.GraphModel;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Exceptions;
 using Gremlin.Net.Structure.IO.GraphSON;
@@ -40,13 +41,11 @@ namespace CarRentalMVC_Auth.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
+            List<string> vertices = new List<string>();
             using (var gremlinClient = new GremlinClient(GraphDbService.gremlinServer, new GraphSON2Reader(), new GraphSON2Writer(), GremlinClient.GraphSON2MimeType))
             {
-                foreach (var query in gremlinQueries)
-                {
-                    Console.WriteLine(String.Format("Running this query: {0}: {1}", query.Key, query.Value));
-
-                    // Create async task to execute the Gremlin query.
+                KeyValuePair<string, string> query = new KeyValuePair<string, string>("1", "g.V()");
+                // Create async task to execute the Gremlin query.
                     var resultSet = SubmitRequest(gremlinClient, query).Result;
                     if (resultSet.Count > 0)
                     {
@@ -55,6 +54,7 @@ namespace CarRentalMVC_Auth.Controllers
                         {
                             // The vertex results are formed as Dictionaries with a nested dictionary for their properties
                             string output = JsonConvert.SerializeObject(result);
+                            vertices.Add(output);
                             Console.WriteLine($"\t{output}");
                         }
                         Console.WriteLine();
@@ -66,22 +66,78 @@ namespace CarRentalMVC_Auth.Controllers
                     //  x-ms-total-request-charge   : The total request units charged for processing a request.
                     PrintStatusAttributes(resultSet.StatusAttributes);
                     Console.WriteLine();
-                }
+                
             }
-            return new string[] { "value1", "value2" };
+            return vertices;
         }
 
         // GET api/<UserGraphController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public string Get(string id)
         {
-            return "value";
+            string output = "nothing found";
+            using (var gremlinClient = new GremlinClient(GraphDbService.gremlinServer, new GraphSON2Reader(), new GraphSON2Writer(), GremlinClient.GraphSON2MimeType))
+            {
+                KeyValuePair<string, string> query = new KeyValuePair<string, string>("1", $"g.V().has('id', '{id}')");
+                // Create async task to execute the Gremlin query.
+                var resultSet = SubmitRequest(gremlinClient, query).Result;
+                if (resultSet.Count > 0)
+                {
+                    Console.WriteLine("\tResult:");
+                    foreach (var result in resultSet)
+                    {
+                        // The vertex results are formed as Dictionaries with a nested dictionary for their properties
+                        output = JsonConvert.SerializeObject(result);
+                        Console.WriteLine($"\t{output}");
+                    }
+                    Console.WriteLine();
+                }
+
+                // Print the status attributes for the result set.
+                // This includes the following:
+                //  x-ms-status-code            : This is the sub-status code which is specific to Cosmos DB.
+                //  x-ms-total-request-charge   : The total request units charged for processing a request.
+                PrintStatusAttributes(resultSet.StatusAttributes);
+                Console.WriteLine();
+
+            }
+            return output;
         }
 
         // POST api/<UserGraphController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] GraphUser value)
         {
+            string output = "nothing found";
+            using (var gremlinClient = new GremlinClient(GraphDbService.gremlinServer, new GraphSON2Reader(),
+                       new GraphSON2Writer(), GremlinClient.GraphSON2MimeType))
+            {
+                string x =
+                    $"g.addV('{value.label}').property('id', '{value.id}').property('name', '{value.name}').property('username', '{value.username}').property('password', '{value.password}').property('email', '{value.email}').property('birthdate', '{value.birthdate}').property('license_exp', '{value.license_exp}').property('license_id', '{value.license_id}').property('id_number', '{value.id_number}').property('pk', '1')";
+                KeyValuePair<string, string> query = new KeyValuePair<string, string>("1", x);
+                // Create async task to execute the Gremlin query.
+                var resultSet = SubmitRequest(gremlinClient, query).Result;
+                if (resultSet.Count > 0)
+                {
+                    Console.WriteLine("\tResult:");
+                    foreach (var result in resultSet)
+                    {
+                        // The vertex results are formed as Dictionaries with a nested dictionary for their properties
+                        output = JsonConvert.SerializeObject(result);
+                        Console.WriteLine($"\t{output}");
+                    }
+
+                    Console.WriteLine();
+                }
+
+                // Print the status attributes for the result set.
+                // This includes the following:
+                //  x-ms-status-code            : This is the sub-status code which is specific to Cosmos DB.
+                //  x-ms-total-request-charge   : The total request units charged for processing a request.
+                PrintStatusAttributes(resultSet.StatusAttributes);
+                Console.WriteLine();
+
+            }
         }
 
         // PUT api/<UserGraphController>/5
@@ -90,16 +146,41 @@ namespace CarRentalMVC_Auth.Controllers
         {
         }
 
-
-        #region Crap
-
         // DELETE api/<UserGraphController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(string id)
         {
+            string output = "nothing found";
+            using (var gremlinClient = new GremlinClient(GraphDbService.gremlinServer, new GraphSON2Reader(), new GraphSON2Writer(), GremlinClient.GraphSON2MimeType))
+            {
+                KeyValuePair<string, string> query = new KeyValuePair<string, string>("1", $"g.V('{id}').drop()");
+                // Create async task to execute the Gremlin query.
+                var resultSet = SubmitRequest(gremlinClient, query).Result;
+                if (resultSet.Count > 0)
+                {
+                    Console.WriteLine("\tResult:");
+                    foreach (var result in resultSet)
+                    {
+                        // The vertex results are formed as Dictionaries with a nested dictionary for their properties
+                        output = JsonConvert.SerializeObject(result);
+                        Console.WriteLine($"\t{output}");
+                    }
+                    Console.WriteLine();
+                }
+
+                // Print the status attributes for the result set.
+                // This includes the following:
+                //  x-ms-status-code            : This is the sub-status code which is specific to Cosmos DB.
+                //  x-ms-total-request-charge   : The total request units charged for processing a request.
+                PrintStatusAttributes(resultSet.StatusAttributes);
+                Console.WriteLine();
+
+            }
+            
         }
 
 
+        #region Crap
         private static Task<ResultSet<dynamic>> SubmitRequest(GremlinClient gremlinClient, KeyValuePair<string, string> query)
         {
             try
