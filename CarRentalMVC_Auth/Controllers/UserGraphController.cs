@@ -214,7 +214,7 @@ namespace CarRentalMVC_Auth.Controllers
         }
 
 
-        #region Crap
+        #region Helper
         private static Task<ResultSet<dynamic>> SubmitRequest(GremlinClient gremlinClient, KeyValuePair<string, string> query)
         {
             try

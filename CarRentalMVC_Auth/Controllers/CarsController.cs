@@ -33,7 +33,7 @@ namespace CarRentalMVC_Auth.Views
 
         [HttpPost]
         [ActionName("Create")]
-        [ValidateAntiForgeryToken]
+        [IgnoreAntiforgeryToken]
         public async Task<ActionResult> CreateAsync([Bind("Id,Name,Description")] Car item)
         {
             if (ModelState.IsValid)
@@ -48,7 +48,7 @@ namespace CarRentalMVC_Auth.Views
 
         [HttpPost]
         [ActionName("Edit")]
-        [ValidateAntiForgeryToken]
+        [IgnoreAntiforgeryToken]
         public async Task<ActionResult> EditAsync([Bind("Id,Name,Description")] Car item)
         {
             if (ModelState.IsValid)
@@ -96,7 +96,7 @@ namespace CarRentalMVC_Auth.Views
 
         [HttpPost]
         [ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [IgnoreAntiforgeryToken]
         public async Task<ActionResult> DeleteConfirmedAsync([Bind("Id")] string id)
         {
             await _cosmosDbService.DeleteItemAsync(id);
