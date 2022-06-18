@@ -1,6 +1,7 @@
 using System.Configuration;
 using CarRentalMVC_Auth;
 using CarRentalMVC_Auth.Data;
+using CarRentalMVC_Auth.Models.Document;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,7 +35,11 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddControllersWithViews();
 
 
-builder.Services.AddSingleton<ICosmosDbService>(InitializeCosmosClientInstanceAsync(builder.Configuration.GetSection("CosmosDb")).GetAwaiter().GetResult());
+builder.Services.AddSingleton<ICosmosDbService<Rental_Doc>>(InitializeCosmosClientInstanceAsync(builder.Configuration.GetSection("CosmosDbRental")).GetAwaiter().GetResult());
+builder.Services.AddSingleton<ICosmosDbService<Vehicle_Doc>>(InitializeCosmosClientInstanceAsync(builder.Configuration.GetSection("CosmosDbVehicle")).GetAwaiter().GetResult());
+builder.Services.AddSingleton<ICosmosDbService<User_Doc>>(InitializeCosmosClientInstanceAsync(builder.Configuration.GetSection("CosmosDbUser")).GetAwaiter().GetResult());
+builder.Services.AddSingleton<ICosmosDbService<Insurance_Doc>>(InitializeCosmosClientInstanceAsync(builder.Configuration.GetSection("CosmosDbInsurance")).GetAwaiter().GetResult());
+builder.Services.AddSingleton<ICosmosDbService<Location_Doc>>(InitializeCosmosClientInstanceAsync(builder.Configuration.GetSection("CosmosDbLocation")).GetAwaiter().GetResult());
 
 var app = builder.Build();
 

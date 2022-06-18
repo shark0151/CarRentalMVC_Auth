@@ -1,0 +1,77 @@
+﻿@model IEnumerable<CarRentalMVC_Auth.Models.Document.Rental_Doc>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+	    <th>
+		    @Html.DisplayNameFor(model => model.user)
+	    </th>
+	    <th>
+		    @Html.DisplayNameFor(model => model.vehicle)
+	    </th>
+	    <th>
+		    @Html.DisplayNameFor(model => model.insurance)
+	    </th>
+	    <th>
+		    @Html.DisplayNameFor(model => model.pick_location)
+	    </th>
+	    <th>
+		    @Html.DisplayNameFor(model => model.drop_location)
+	    </th>
+	    <th>
+		    @Html.DisplayNameFor(model => model.start_time)
+	    </th>
+	    <th>
+		    @Html.DisplayNameFor(model => model.end_time)
+	    </th>
+	    <th>
+		    @Html.DisplayNameFor(model => model.active)
+	    </th>
+	    <th></th>
+    </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+	<tr>
+		<td>
+			@Html.DisplayFor(modelItem => item.user.id_number)
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.vehicle.Name)
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.insurance.type)
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.pick_location.name)
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.drop_location.name)
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.start_time)
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.end_time)
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.active)
+		</td>
+		<td>
+			<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+			<a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+			<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+		</td>
+	</tr>
+}
+    </tbody>
+</table>

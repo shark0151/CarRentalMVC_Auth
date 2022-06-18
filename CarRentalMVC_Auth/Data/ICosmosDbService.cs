@@ -2,14 +2,17 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using CarRentalMVC_Auth.Models.Document;
     using Models;
 
-    public interface ICosmosDbService
+    public interface ICosmosDbService<T>
     {
-        Task<IEnumerable<Car>> GetItemsAsync(string query);
-        Task<Car> GetItemAsync(string id);
-        Task AddItemAsync(Car item);
-        Task UpdateItemAsync(string id, Car item);
+        //Vehicle
+        Task<IEnumerable<T>> GetItemsAsync(string query);
+        Task<T> GetItemAsync(string id);
+        Task AddItemAsync(T item);
+        Task UpdateItemAsync(string id, T item);
         Task DeleteItemAsync(string id);
+        
     }
 }

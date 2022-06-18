@@ -1,0 +1,68 @@
+﻿@model CarRentalMVC_Auth.Models.Rental
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Rental</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="iduser" class="control-label"></label>
+                <input asp-for="iduser" class="form-control" />
+                <span asp-validation-for="iduser" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="idvehicle" class="control-label"></label>
+                <input asp-for="idvehicle" class="form-control" />
+                <span asp-validation-for="idvehicle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="start_time" class="control-label"></label>
+                <input asp-for="start_time" class="form-control" />
+                <span asp-validation-for="start_time" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="end_time" class="control-label"></label>
+                <input asp-for="end_time" class="form-control" />
+                <span asp-validation-for="end_time" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="pickup_loc" class="control-label"></label>
+                <input asp-for="pickup_loc" class="form-control" />
+                <span asp-validation-for="pickup_loc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="dropoff_loc" class="control-label"></label>
+                <input asp-for="dropoff_loc" class="form-control" />
+                <span asp-validation-for="dropoff_loc" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="active" /> @Html.DisplayNameFor(model => model.active)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="idinsurance" class="control-label"></label>
+                <input asp-for="idinsurance" class="form-control" />
+                <span asp-validation-for="idinsurance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

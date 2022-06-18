@@ -1,5 +1,4 @@
-﻿#nullable disable
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,16 +6,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarRentalMVC_Auth.Data;
-using CarRentalMVC_Auth.Models;
+using CarRentalMVC_Auth.Models.Document;
 
-namespace CarRentalMVC_Auth.Views
+namespace CarRentalMVC_Auth.Controllers
 {
-    public class CarsController : Controller
+    public class Rental_DocController : Controller
     {
-        private readonly ICosmosDbService _cosmosDbService;
-        public CarsController(ICosmosDbService cosmosDbService)
+        private readonly ICosmosDbService<Rental_Doc> _cosmosDbService;
+        public Rental_DocController(ICosmosDbService<Rental_Doc> cosmosDbService)
         {
             _cosmosDbService = cosmosDbService;
+
         }
 
         [ActionName("Index")]
@@ -34,7 +34,7 @@ namespace CarRentalMVC_Auth.Views
         [HttpPost]
         [ActionName("Create")]
         [IgnoreAntiforgeryToken]
-        public async Task<ActionResult> CreateAsync([Bind("Id,Name,Description")] Car item)
+        public async Task<ActionResult> CreateAsync([FromBody] Rental_Doc item)
         {
             if (ModelState.IsValid)
             {
@@ -49,7 +49,7 @@ namespace CarRentalMVC_Auth.Views
         [HttpPost]
         [ActionName("Edit")]
         [IgnoreAntiforgeryToken]
-        public async Task<ActionResult> EditAsync([Bind("Id,Name,Description")] Car item)
+        public async Task<ActionResult> EditAsync([FromBody] Rental_Doc item)
         {
             if (ModelState.IsValid)
             {
@@ -68,7 +68,7 @@ namespace CarRentalMVC_Auth.Views
                 return BadRequest();
             }
 
-            Car item = await _cosmosDbService.GetItemAsync(id);
+            Rental_Doc item = await _cosmosDbService.GetItemAsync(id);
             if (item == null)
             {
                 return NotFound();
@@ -85,7 +85,7 @@ namespace CarRentalMVC_Auth.Views
                 return BadRequest();
             }
 
-            Car item = await _cosmosDbService.GetItemAsync(id);
+            Rental_Doc item = await _cosmosDbService.GetItemAsync(id);
             if (item == null)
             {
                 return NotFound();
@@ -110,4 +110,3 @@ namespace CarRentalMVC_Auth.Views
         }
     }
 }
-

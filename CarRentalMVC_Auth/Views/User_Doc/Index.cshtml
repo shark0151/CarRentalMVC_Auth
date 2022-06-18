@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CarRentalMVC_Auth.Models.Car>
+﻿@model IEnumerable<CarRentalMVC_Auth.Models.Document.User_Doc>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,10 +13,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.id_number)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.license_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.license_exp)
             </th>
             <th></th>
         </tr>
@@ -25,10 +28,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.id_number)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @Html.DisplayFor(modelItem => item.license_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.license_exp)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

@@ -16,8 +16,33 @@ namespace CarRentalMVC_Auth.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.3")
+                .HasAnnotation("ProductVersion", "6.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("CarRentalMVC_Auth.Models.Insurance", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("idinsurance");
+
+                    b.Property<string>("description")
+                        .HasColumnType("longtext")
+                        .HasColumnName("desc");
+
+                    b.Property<int>("rate")
+                        .HasColumnType("int")
+                        .HasColumnName("rate");
+
+                    b.Property<string>("type")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("type");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("insurance", (string)null);
+                });
 
             modelBuilder.Entity("CarRentalMVC_Auth.Models.Location", b =>
                 {
@@ -47,7 +72,51 @@ namespace CarRentalMVC_Auth.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Locations");
+                    b.ToTable("location", (string)null);
+                });
+
+            modelBuilder.Entity("CarRentalMVC_Auth.Models.Rental", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("idrental");
+
+                    b.Property<bool>("active")
+                        .HasColumnType("tinyint(1)")
+                        .HasColumnName("active");
+
+                    b.Property<int>("dropoff_loc")
+                        .HasColumnType("int")
+                        .HasColumnName("dropoff_loc");
+
+                    b.Property<DateTime?>("end_time")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("end_time");
+
+                    b.Property<int>("idinsurance")
+                        .HasColumnType("int")
+                        .HasColumnName("idinsurance");
+
+                    b.Property<int>("iduser")
+                        .HasColumnType("int")
+                        .HasColumnName("iduser");
+
+                    b.Property<int>("idvehicle")
+                        .HasColumnType("int")
+                        .HasColumnName("idvehicle");
+
+                    b.Property<int>("pickup_loc")
+                        .HasColumnType("int")
+                        .HasColumnName("pickup_loc");
+
+                    b.Property<DateTime?>("start_time")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("start_time");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("rental", (string)null);
                 });
 
             modelBuilder.Entity("CarRentalMVC_Auth.Models.User", b =>
@@ -99,7 +168,71 @@ namespace CarRentalMVC_Auth.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("user", (string)null);
+                });
+
+            modelBuilder.Entity("CarRentalMVC_Auth.Models.Vehicle", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("idvehicle");
+
+                    b.Property<string>("brand")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("brand");
+
+                    b.Property<int>("current_loc")
+                        .HasColumnType("int")
+                        .HasColumnName("current_loc");
+
+                    b.Property<string>("desc")
+                        .HasColumnType("longtext")
+                        .HasColumnName("desc");
+
+                    b.Property<string>("fuel_type")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("fuel_type");
+
+                    b.Property<string>("license_nr")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("license_nr");
+
+                    b.Property<string>("model")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("model");
+
+                    b.Property<DateTime>("mot_exp")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("mot_exp");
+
+                    b.Property<int>("rate")
+                        .HasColumnType("int")
+                        .HasColumnName("rate");
+
+                    b.Property<int?>("seats")
+                        .HasColumnType("int")
+                        .HasColumnName("seats");
+
+                    b.Property<string>("transmission")
+                        .HasColumnType("longtext")
+                        .HasColumnName("transmission");
+
+                    b.Property<string>("type")
+                        .HasColumnType("longtext")
+                        .HasColumnName("type");
+
+                    b.Property<int?>("year")
+                        .HasColumnType("int")
+                        .HasColumnName("year");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("vehicle", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

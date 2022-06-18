@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using CarRentalMVC_Auth.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace CarRentalMVC_Auth
 {
@@ -9,8 +10,10 @@ namespace CarRentalMVC_Auth
         {
             var userManager = serviceProvider.GetService<UserManager<IdentityUser>>();
             var roleManager = serviceProvider.GetService<RoleManager<IdentityRole>>();
+            
             SeedRole(roleManager);
             SeedUser(userManager);
+            
         }
         public static void SeedUser(UserManager<IdentityUser> userManager)
         {
@@ -55,5 +58,6 @@ namespace CarRentalMVC_Auth
                 var result = roleManager.CreateAsync(role).Result;
             }
         }
+
     }
 }

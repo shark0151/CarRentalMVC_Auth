@@ -1,7 +1,7 @@
-﻿namespace CarRentalMVC_Auth.Models
+﻿namespace CarRentalMVC_Auth.Models.Document
 {
     using Newtonsoft.Json;
-    public class Car
+    public class Vehicle_Doc
     {
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }

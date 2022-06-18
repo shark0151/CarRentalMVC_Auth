@@ -10,41 +10,82 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SuperDeluxe Car Rental</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-	                    <li class="nav-item">
-		                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-	                    </li>
-	                    <li class="nav-item">
-		                    <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
-	                    </li>
-	                    <li class="nav-item">
-		                    <a class="nav-link text-dark" asp-area="" asp-controller="Locations" asp-action="Index">Locations</a>
-	                    </li>
-	                    <li class="nav-item">
-		                    <a class="nav-link text-dark" asp-area="" asp-controller="Insurances" asp-action="Index">Insurances</a>
-	                    </li>
-	                    <li class="nav-item">
-		                    <a class="nav-link text-dark" asp-area="" asp-controller="Cars" asp-action="Index">Vehicles(CosmoDB)</a>
-	                    </li>
-	                    <li class="nav-item">
-		                    <a class="nav-link text-dark" asp-area="" asp-controller="Vehicles" asp-action="Index">Vehicles(MySQL)</a>
-	                    </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
-                </div>
-            </div>
-        </nav>
+	    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+		    <div class="container-fluid">
+			    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SuperDeluxe Car Rental</a>
+			    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+			            aria-expanded="false" aria-label="Toggle navigation">
+				    <span class="navbar-toggler-icon"></span>
+			    </button>
+			    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+				    <ul class="navbar-nav flex-grow-1">
+					    <li class="nav-item">
+						    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+					    </li>
+					    <li class="nav-item">
+						    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+					    </li>
+				    </ul>
+
+				    <ul class="navbar-nav flex-grow-1">
+
+					    <li class="nav-item">
+						    <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
+					    </li>
+					    <li class="nav-item">
+						    <a class="nav-link text-dark" asp-area="" asp-controller="Vehicles" asp-action="Index">Vehicles</a>
+					    </li>
+					    <li class="nav-item">
+						    <a class="nav-link text-dark" asp-area="" asp-controller="Locations" asp-action="Index">Locations</a>
+					    </li>
+					    <li class="nav-item">
+						    <a class="nav-link text-dark" asp-area="" asp-controller="Insurances" asp-action="Index">Insurances</a>
+					    </li>
+					    <li class="nav-item">
+						    <a class="nav-link text-dark" asp-area="" asp-controller="Rentals" asp-action="Index">Rental</a>
+					    </li>
+				    </ul>
+
+				    <ul class="navbar-nav flex-grow-1">
+					    <li class="nav-item">
+						    <a class="nav-link text-dark" asp-area="" asp-controller="User_Doc" asp-action="Index">User(Doc)</a>
+					    </li>
+					    <li class="nav-item">
+						    <a class="nav-link text-dark" asp-area="" asp-controller="Vehicle_Doc" asp-action="Index">Vehicles(Doc)</a>
+					    </li>
+					    <li class="nav-item">
+						    <a class="nav-link text-dark" asp-area="" asp-controller="Location_Doc" asp-action="Index">Location(Doc)</a>
+					    </li>
+					    <li class="nav-item">
+						    <a class="nav-link text-dark" asp-area="" asp-controller="Insurance_Doc" asp-action="Index">Insurance(Doc)</a>
+					    </li>
+					    <li class="nav-item">
+						    <a class="nav-link text-dark" asp-area="" asp-controller="Rental_Doc" asp-action="Index">Rental(Doc)</a>
+					    </li>
+				    </ul>
+					
+				    <ul class="navbar-nav flex-grow-1">
+					    <li class="nav-item">
+						    <a class="nav-link text-dark" asp-area="" asp-controller="User_Doc" asp-action="Index">User(Graph)</a>
+					    </li>
+					    <li class="nav-item">
+						    <a class="nav-link text-dark" asp-area="" asp-controller="Vehicle_Doc" asp-action="Index">Vehicles(Graph)</a>
+					    </li>
+					    <li class="nav-item">
+						    <a class="nav-link text-dark" asp-area="" asp-controller="Location_Doc" asp-action="Index">Location(Graph)</a>
+					    </li>
+					    <li class="nav-item">
+						    <a class="nav-link text-dark" asp-area="" asp-controller="Insurance_Doc" asp-action="Index">Insurance(Graph)</a>
+					    </li>
+					    <li class="nav-item">
+						    <a class="nav-link text-dark" asp-area="" asp-controller="Rental_Doc" asp-action="Index">Rental(Graph)</a>
+					    </li>
+				    </ul>
+
+				    <partial name="_LoginPartial"/>
+			    </div>
+		    </div>
+	    </nav>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
