@@ -199,6 +199,7 @@ namespace CarRentalMVC_Auth.Data
                     { "AddRental",      $"g.addV('{value.label}').property('id', '{value.id}').property('start_time', '{value.start_time}').property('end_time', '{value.end_time}').property('active', {value.active.ToString().ToLower()}).property('pk', '1')" },
                     { "AddUser",        $"g.V('{value.userID}').addE('Rents').to(g.V('{value.id}'))" },
                     { "AddVehicle",        $"g.V('{value.id}').addE('Uses').to(g.V('{value.vehicleID}'))" },
+                    { "AddInsurance",        $"g.V('{value.id}').addE('InsuredBy').to(g.V('{value.insuranceID}'))" },
                     { "AddPickLocation",        $"g.V('{value.id}').addE('PickAt').to(g.V('{value.pick_locationID}'))" },
                     { "AddDropLocation",        $"g.V('{value.id}').addE('DropAt').to(g.V('{value.drop_locationID}'))" }
                 };
@@ -390,8 +391,10 @@ namespace CarRentalMVC_Auth.Data
                     { "DropEdge2",        $"g.V('{value.id}').outE('Uses').drop()" },
                     { "DropEdge3",        $"g.V('{value.id}').outE('PickAt').drop()" },
                     { "DropEdge4",        $"g.V('{value.id}').outE('DropAt').drop()" },
+                    { "DropEdge5",        $"g.V('{value.id}').outE('InsuredBy').drop()" },
                     { "AddUser",        $"g.V('{value.userID}').addE('Rents').to(g.V('{value.id}'))" },
                     { "AddVehicle",        $"g.V('{value.id}').addE('Uses').to(g.V('{value.vehicleID}'))" },
+                    { "AddInsurance",        $"g.V('{value.id}').addE('InsuredBy').to(g.V('{value.insuranceID}'))" },
                     { "AddPickLocation",        $"g.V('{value.id}').addE('PickAt').to(g.V('{value.pick_locationID}'))" },
                     { "AddDropLocation",        $"g.V('{value.id}').addE('DropAt').to(g.V('{value.drop_locationID}'))" }
                 };
