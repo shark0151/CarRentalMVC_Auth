@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarRentalMVC_Auth.Data;
 using CarRentalMVC_Auth.Models.Document;
+using Microsoft.Azure.Cosmos;
+using Newtonsoft.Json;
 
 namespace CarRentalMVC_Auth.Controllers
 {
@@ -44,6 +46,15 @@ namespace CarRentalMVC_Auth.Controllers
             }
 
             return View(item);
+        }
+
+        [HttpGet]
+        [Route("SP")]
+        [IgnoreAntiforgeryToken]
+        public async Task<string> RunProcedure()
+        {
+            string result = await _cosmosDbService.RunProcedure();
+            return result;
         }
 
         [HttpPost]

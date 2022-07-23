@@ -32,5 +32,8 @@ namespace CarRentalMVC_Auth.Models.Document
         [JsonProperty(PropertyName = "active")]
         public bool active { get; set; }
 
+        [JsonProperty(PropertyName = "type")] 
+        public string type = "rental";
+
     }
 }

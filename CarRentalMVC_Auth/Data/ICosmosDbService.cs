@@ -13,6 +13,6 @@
         Task AddItemAsync(T item);
         Task UpdateItemAsync(string id, T item);
         Task DeleteItemAsync(string id);
-        
+        Task<string> RunProcedure();
     }
 }

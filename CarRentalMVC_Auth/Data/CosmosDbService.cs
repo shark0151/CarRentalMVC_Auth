@@ -77,6 +77,15 @@
         #endregion
 
         #region Rental
+
+        public async Task<string> RunProcedure()
+        {
+            var x = 
+                await _container.Scripts.ExecuteStoredProcedureAsync<string>("GetVehiclesOvertime",
+                    new PartitionKey("rental"), Array.Empty<dynamic>());
+            return x.Resource;
+        }
+
         async Task ICosmosDbService<Rental_Doc>.AddItemAsync(Rental_Doc item)
         {   
             //move this check to a trigger
@@ -86,7 +95,7 @@
             Location_Doc loc = await this._containerLoc.ReadItemAsync<Location_Doc>(item.drop_location.Id, new PartitionKey(item.drop_location.Id));
             Location_Doc loc2 = await this._containerLoc.ReadItemAsync<Location_Doc>(item.pick_location.Id, new PartitionKey(item.pick_location.Id));
             if (veh != null && ins != null && usr != null && loc != null && loc2 != null)
-                await this._container.CreateItemAsync<Rental_Doc>(item, new PartitionKey(item.Id));
+                await this._container.CreateItemAsync<Rental_Doc>(item, new PartitionKey(item.type), new ItemRequestOptions { PreTriggers = new List<string> { "TimeCheck" } });
             
         }
 
