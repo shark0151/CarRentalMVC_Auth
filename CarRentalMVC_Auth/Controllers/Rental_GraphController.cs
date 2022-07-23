@@ -21,13 +21,14 @@ namespace CarRentalMVC_Auth.Controllers
         // GET api/<UserGraphController>/5
         [HttpGet("{id}")]
         [ActionName("Details")]
-        public string Get(string id)
+        public IEnumerable<string> Get(string id)
         {
             List<string> vertices = new List<string>();
             vertices = GraphDbService.GetAll($".hasLabel('Rental').has('id', '{id}')");
+            vertices.AddRange(GraphDbService.GetAll($".hasId('{id}').out()"));
             try
             {
-                return vertices[0];
+                return vertices;
             }
             catch (ArgumentOutOfRangeException e)
             {
