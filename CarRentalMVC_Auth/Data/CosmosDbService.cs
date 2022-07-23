@@ -101,7 +101,7 @@
 
         async Task ICosmosDbService<Rental_Doc>.DeleteItemAsync(string id)
         {
-            await this._container.DeleteItemAsync<Rental_Doc>(id, new PartitionKey(id));
+            await this._container.DeleteItemAsync<Rental_Doc>(id, new PartitionKey("rental"));
 
         }
 
@@ -109,7 +109,7 @@
         {
             try
             {
-                ItemResponse<Rental_Doc> response = await this._container.ReadItemAsync<Rental_Doc>(id, new PartitionKey(id));
+                ItemResponse<Rental_Doc> response = await this._container.ReadItemAsync<Rental_Doc>(id, new PartitionKey("rental"));
                 return response.Resource;
             }
             catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -135,7 +135,7 @@
 
         async Task ICosmosDbService<Rental_Doc>.UpdateItemAsync(string id, Rental_Doc item)
         {
-            await this._container.UpsertItemAsync<Rental_Doc>(item, new PartitionKey(id));
+            await this._container.UpsertItemAsync<Rental_Doc>(item, new PartitionKey("rental"));
         }
 
         #endregion
