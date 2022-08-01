@@ -57,7 +57,7 @@ namespace CarRentalMVC_Auth.Controllers
             return result;
         }
 
-        [HttpPost]
+        [HttpPut]
         [ActionName("Edit")]
         [IgnoreAntiforgeryToken]
         public async Task<ActionResult> EditAsync([FromBody] Rental_Doc item)
